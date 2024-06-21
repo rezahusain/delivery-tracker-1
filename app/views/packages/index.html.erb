@@ -48,4 +48,34 @@
 
 <hr>
 
+<h2>Waiting on</h2>
+  <div>
+    <ul>
+      <%@list_of_unreceived_packages.each do |a_package|%>
+        <li>
+          <div><%=a_package.description%></div>
+          <div style="color: red;">Supposed to arrive on <%=a_package.arrives_on%></div>
+          <form action="/modify_package/<%=a_package.id%>" method="post">
+            <input type="hidden" name="query_arrived" value="true">
+            <button>Mark as received</button>
+          </form>
+        </li>
+        <br>
+      <%end%>
+    </ul>
+  </div>
 <hr>
+
+<h2>Received</h2>
+  <div>
+    <ul>
+      <%@list_of_received_packages.each do |a_package|%>
+        <li>
+          <div><%=a_package.description%></div>
+          <div>Updated <%=a_package.updated_at%> minutes ago</div>
+          <div><button>Delete</button></div>
+        </li>
+        <br>
+      <%end%>
+    </ul>
+  </div>

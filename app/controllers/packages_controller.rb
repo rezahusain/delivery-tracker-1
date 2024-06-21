@@ -2,7 +2,8 @@ class PackagesController < ApplicationController
   def index
     matching_packages = Package.all
 
-    @list_of_packages = matching_packages.order({ :created_at => :desc })
+    @list_of_unreceived_packages = Package.where({:is_received => :false}).order({:created_at => :desc})
+    @list_of_received_packages = Package.where({:is_received => :true}).order({:created_at => :desc})
 
     render({ :template => "packages/index" })
   end
@@ -22,6 +23,7 @@ class PackagesController < ApplicationController
     the_package.description = params.fetch("query_description")
     the_package.arrives_on = params.fetch("query_arrives_on")
     the_package.details = params.fetch("query_details")
+    the_package.is_received = false
 
     if the_package.valid?
       the_package.save
@@ -38,6 +40,7 @@ class PackagesController < ApplicationController
     the_package.description = params.fetch("query_description")
     the_package.arrives_on = params.fetch("query_arrives_on")
     the_package.details = params.fetch("query_details")
+    the_package.is_received = true
 
     if the_package.valid?
       the_package.save
