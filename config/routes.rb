@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users
   # Routes for the Package resource:
-
+  root to: "packages#index"
   # CREATE
   post("/insert_package", { :controller => "packages", :action => "create" })
           
