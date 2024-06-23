@@ -56,8 +56,8 @@
         <li>
           <div><%=a_package.description%></div>
           <div style="color: red;">Supposed to arrive on <%=a_package.arrives_on%></div>
+          <div><%=a_package.details%></div>
           <form action="/modify_package/<%=a_package.id%>" method="post">
-            <input type="hidden" name="query_arrived" value="true">
             <button>Mark as received</button>
           </form>
         </li>
@@ -73,8 +73,8 @@
       <%@list_of_received_packages.each do |a_package|%>
         <li>
           <div><%=a_package.description%></div>
-          <div>Updated <%=a_package.updated_at%> minutes ago</div>
-          <div><button>Delete</button></div>
+          <div>Updated <%=a_package.updated_at.strftime("%M")%> minutes ago</div>
+          <a href="/delete_package/<%=a_package.id%>">Delete</a>
         </li>
         <br>
       <%end%>

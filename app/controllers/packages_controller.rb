@@ -27,7 +27,7 @@ class PackagesController < ApplicationController
 
     if the_package.valid?
       the_package.save
-      redirect_to("/packages", { :notice => "Package created successfully." })
+      redirect_to("/packages", { :notice => "Added to list." })
     else
       redirect_to("/packages", { :alert => the_package.errors.full_messages.to_sentence })
     end
@@ -37,16 +37,13 @@ class PackagesController < ApplicationController
     the_id = params.fetch("path_id")
     the_package = Package.where({ :id => the_id }).at(0)
 
-    the_package.description = params.fetch("query_description")
-    the_package.arrives_on = params.fetch("query_arrives_on")
-    the_package.details = params.fetch("query_details")
     the_package.is_received = true
 
     if the_package.valid?
       the_package.save
-      redirect_to("/packages/#{the_package.id}", { :notice => "Package updated successfully."} )
+      redirect_to("/packages", { :notice => "Marked as received."} )
     else
-      redirect_to("/packages/#{the_package.id}", { :alert => the_package.errors.full_messages.to_sentence })
+      redirect_to("/packages", { :alert => the_package.errors.full_messages.to_sentence })
     end
   end
 
@@ -56,6 +53,6 @@ class PackagesController < ApplicationController
 
     the_package.destroy
 
-    redirect_to("/packages", { :notice => "Package deleted successfully."} )
+    redirect_to("/packages", { :notice => "Deleted."} )
   end
 end
